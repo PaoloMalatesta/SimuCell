@@ -1,4 +1,4 @@
-#####################################################################################
+/*#####################################################################################
 #This code was written in c++ by 
 #Prof. Paolo Malatesta, PhD 
 #IRCCS Ospedale Policlinico San Martino, 16132 Genova, Italy
@@ -11,7 +11,7 @@
 #
 #The code is intended only for academic purpose, to simulate the growth of a brain
 #tumor, monitoring the position and the clonal identity of the composing cells.
-######################################################################################
+#####################################################################################*/
 
 
 #include <iostream>
