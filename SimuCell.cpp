@@ -1,3 +1,19 @@
+#####################################################################################
+#This code was written in c++ by 
+#Prof. Paolo Malatesta, PhD 
+#IRCCS Ospedale Policlinico San Martino, 16132 Genova, Italy
+#Department of Experimental Medicine (DIMES), University of Genova, 16132 Genova, Italy
+#email: paolo.malatesta@unige.it
+#Dr. Davide Ceresa, PhD
+#IRCCS Ospedale Policlinico San Martino, 16132 Genova, Italy
+#Department of Experimental Medicine (DIMES), University of Genova, 16132 Genova, Italy
+#email: davide.ceresa91@gmail.com
+#
+#The code is intended only for academic purpose, to simulate the growth of a brain
+#tumor, monitoring the position and the clonal identity of the composing cells.
+######################################################################################
+
+
 #include <iostream>
 #include <string>
 #include <fstream>
