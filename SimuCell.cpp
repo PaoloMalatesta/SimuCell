@@ -337,6 +337,7 @@ int main(int argc, char* argv[]) {
 						//CELL CYCLE GENERATION FOR DAUGHTER CELL 2
                         double gauss=cnorm()*SD_DELTA_CYCLE;
                         int goG0=(cunif()<=G_ZERO_P)||(cellsd[dcell][6]==0);
+			restingCells+=goG0;
                         double newCycleLen=cellsd[dcell][2]             
                                            +(gauss<0)*gauss*((cellsd[dcell][2]/LOW_CYCLE_LIMIT)-1)
                                            +(gauss>=0)*gauss+1e7*goG0;
