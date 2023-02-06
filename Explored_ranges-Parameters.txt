@@ -1,0 +1,35 @@
+FILE NAME: Explored ranges_1-Parameters.txt
+Version: Version4.2.4.3
+***General*** 
+SPACESIZE 60000000 cells
+MAXDAYS 180 days
+START 10000 cells
+OUTPUT_TYPE 0 cells
+SAMPLE_FRACTION 0.01 cells
+***BrainGeometry***
+SEEDING_SIZE 157000 nm
+BRAIN_VOXEL 300000 nm			<-from 50000 to 300000
+scaleVox 6 (RATIO)				<-from 1 to 6
+QUBI 200
+***CellCycle***
+LOW_CYCLE_LIMIT 825 centiHrs	<-from 800 to 1040
+BASE_CYCLE -2200 centiHrs
+SD_BASE_CYCLE -80
+SD_DELTA_CYCLE 250				<-from 100 to 1000
+SCALE SKNorm 9
+***Migration***
+MIGRATION_UNIT					<-from 3200 to 15000 nm
+***CellDeath***
+P_DEATH_SCALE 0.2
+EC50							<-from 30 to 200
+P_DEATH_T_ZERO					<-from 0.0025 to 0.04
+ALIEN_WEIGHT 3					<-from 1 to 10
+LINEAGE_WEIGHT					<-from 0.01 to 1
+***Quiescence and stemness***
+G_ZERO_P <-from 0 to 0.45
+STEM_FREQ_T0 1
+P_ASYM 0
+P_T_GEN 0
+SENCYCL 2      
+RSEED 765343
+mSEED 18446744073708786273
