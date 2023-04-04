@@ -1,6 +1,6 @@
 /*#####################################################################################
-#This code was written in c++ by 
-#Prof. Paolo Malatesta, PhD 
+#This code was written in c++ by
+#Prof. Paolo Malatesta, PhD
 #IRCCS Ospedale Policlinico San Martino, 16132 Genova, Italy
 #Department of Experimental Medicine (DIMES), University of Genova, 16132 Genova, Italy
 #email: paolo.malatesta@unige.it
@@ -34,42 +34,40 @@ using namespace std;
 //TUNABLE PARAMETERS
 //Base
 const string version {"Version4.x Generic"};
-const int SPACESIZE {60'000'000};
-const int MAXDAYS  {180};
-const int START {10'000};
-const int OUTPUT_TYPE{0};
-const double SAMPLE_FRACTION {0.01};
-const long RSEED {12};
+int SPACESIZE {60'000'000};
+int MAXDAYS  {180};
+int START {10'000};
+bool OUTPUT_TYPE =false;
+double SAMPLE_FRACTION {0.01};
+long RSEED {12};
 //BrainGeometry
-const int SEEDING_SIZE {157'000};
-const int BASE_VOXEL {50'000};
-const double SCALE_VOX {6};
+int SEEDING_SIZE {157'000};
+int BASE_VOXEL {50'000};
+double SCALE_VOX {6};
 int brainVoxel {BASE_VOXEL*SCALE_VOX};
-const int QUBI {200};
+int QUBI {200};
 //Cell Cycles parameters are given as hours*10^(-2)
-const int LOW_CYCLE_LIMIT {850};
-const int BASE_CYCLE {-2200};
-const double SD_BASE_CYCLE {-80};
-const int SD_DELTA_CYCLE {250};
-//skewnorm parameters from timelaspe data
-const double SEEDCYCLE_MODE {13.5};
-const double SEEDCYCLE_SCALE{9};
-const double SEEDCYCLE_SHAPE{11};
+int LOW_CYCLE_LIMIT {850};
+int SD_DELTA_CYCLE {250};
+//skewnorm parameters computed from timelapse data
+double SEEDCYCLE_MODE {13.5};
+double SEEDCYCLE_SCALE{9};
+double SEEDCYCLE_SHAPE{11};
 //Migration
-const int MIGRATION_UNIT {7500};
+int MIGRATION_UNIT {7500};
 //CellDeath
-const double P_DEATH_SCALE {0.2};
-const double EC50 {60};
-const double P_DEATH_T_ZERO {0.0025};
-const double ALIEN_WEIGHT {1};
-const double LINEAGE_WEIGHT {1};
+double P_DEATH_SCALE {0.2};
+double EC50 {60};
+double P_DEATH_T_ZERO {0.0025};
+double ALIEN_WEIGHT {1};
+double LINEAGE_WEIGHT {1};
 //Quiescence and Stemness
-const double G_ZERO_P {0.45};
-const double STEM_FREQ_T0 {1};
-const int N_DIFF_CYCLE {12};
-const int SENCYCL{2};
-const double P_ASYM {0}; //probability of asymmetric cell division
-const double P_T_GEN {0};//probability of no two stem cells
+double G_ZERO_P {0.45};
+double STEM_FREQ_T0 {1};
+int N_DIFF_CYCLE {12};
+int SENCYCL{2};
+double P_ASYM {0}; //probability of asymmetric cell division
+double P_T_GEN {0};//probability of no two stem cells
 //END TUNABLE PARAMETERS
 
 
@@ -95,7 +93,7 @@ int printParameter(std::string  ParamFileName) {
     fparam<<"SPACESIZE "<<SPACESIZE<<" cells"<<endl;
     fparam<<"MAXDAYS "<<MAXDAYS<<" days"<<endl;
     fparam<<"START "<<START<<" cells"<<endl;
-    fparam<<"OUTPUT_TYPE "<<OUTPUT_TYPE<<" cells"<<endl;
+    fparam<<"OUTPUT_TYPE "<<OUTPUT_TYPE<<" (true=all/false=sample)"<<endl;
     fparam<<"SAMPLE_FRACTION "<<SAMPLE_FRACTION<<" cells"<<endl;
     fparam<<"***BrainGeometry***"<<endl;
     fparam<<"SEEDING_SIZE "<<SEEDING_SIZE<<" nm"<<endl;
@@ -104,8 +102,6 @@ int printParameter(std::string  ParamFileName) {
     fparam<<"QUBI "<<QUBI<<endl;
     fparam<<"***CellCycle***"<<endl;
     fparam<<"LOW_CYCLE_LIMIT "<<LOW_CYCLE_LIMIT<<" centiHrs"<<endl;
-    fparam<<"BASE_CYCLE "<<BASE_CYCLE<<" centiHrs"<<endl;
-    fparam<<"SD_BASE_CYCLE "<<SD_BASE_CYCLE<<endl;
     fparam<<"SD_DELTA_CYCLE "<<SD_DELTA_CYCLE<<endl;
     fparam<<"SEEDCYCLE_MODE "<<SEEDCYCLE_MODE<<endl;
     fparam<<"SEEDCYCLE_SCALE "<<SEEDCYCLE_SCALE<<endl;
@@ -146,6 +142,20 @@ double rskn(double loc, double scale, double shape) {
 
 int main(int argc, char* argv[]) {
 
+////////command-line parameters check and read//////
+        if (argc!=7) {
+        cout<<"Too few arguments for this call. Expected 6"<<endl;
+        cout<<"Found: "<<argc<<endl;
+        return -1;
+    }
+
+    SD_DELTA_CYCLE=stod(argv[1]);
+    P_DEATH_T_ZERO=stod(argv[2]);
+    EC50=stod(argv[3]);
+    LINEAGE_WEIGHT=stod(argv[4]);
+    ALIEN_WEIGHT=stod(argv[5]);
+    RSEED=stod(argv[6]);
+
     std::hash<long> hashlong;
     mseed= hashlong(-RSEED);
 
@@ -174,7 +184,7 @@ int main(int argc, char* argv[]) {
     ftrackH<<"popsize"<<"\t";
     ftrackH<<"nclones"<<"\t";
     ftrackH<<"shannon"<<"\t";
-    ftrackH<<"CyleMedian"<<"\t";
+    ftrackH<<"CycleMedian"<<"\t";
     ftrackH<<"restingCells"<<"\t";
     ftrackH<<"numberOfDeaths"<<"\t";
     ftrackH<<"newCells"<<"\t";
@@ -311,7 +321,7 @@ int main(int argc, char* argv[]) {
                         cellsd[Ndcell][6]=cellsp[pcell][6];
                         Ndcell++;
                     }
-                } 
+                }
 				// END SURVIVORS IDENTIFICATION AND COPY
 
                 numberOfDeaths=popsize-Ndcell;
@@ -332,16 +342,16 @@ int main(int argc, char* argv[]) {
                         }
 
                         cellsd[newcellIndex][0]=cellsd[dcell][0];
-						
+
 						//CELL CYCLE GENERATION FOR DAUGHTER CELL 2
                         double gauss=cnorm()*SD_DELTA_CYCLE;
                         int goG0=(cunif()<=G_ZERO_P)||(cellsd[dcell][6]==0);
 			restingCells+=goG0;
-                        double newCycleLen=cellsd[dcell][2]             
+                        double newCycleLen=cellsd[dcell][2]
                                            +(gauss<0)*gauss*((cellsd[dcell][2]/LOW_CYCLE_LIMIT)-1)
                                            +(gauss>=0)*gauss+1e7*goG0;
 						//END CELL CYCLE GENERATION FOR DAUGHTER CELL 2
-						
+
                         cellsd[newcellIndex][1]= newCycleLen;
                         cellsd[newcellIndex][2]= newCycleLen;
 
@@ -365,7 +375,7 @@ int main(int argc, char* argv[]) {
                                     +(gauss<0)*gauss*((cellsd[dcell][2]/LOW_CYCLE_LIMIT)-1)
                                     + (gauss>=0)*gauss+1e7*goG0;
 						//END CELL CYCLE GENERATION FOR DAUGHTER CELL 1
-						
+
                         cellsd[dcell][2]=cellsd[dcell][1]= newCycleLen;
                         cellsd[dcell][6]=goG0?(-100):(cellsd[dcell][6]+1);
 
@@ -448,7 +458,7 @@ int main(int argc, char* argv[]) {
                 ftrackH<<stemNumber<<"\t";
                 ftrackH<<oss.str()<<endl;
 				//END HOUR-BY-HOUR TRACKING
-				
+
             } //HOUR-LOOP END
 
             //DAY-BY-DAY TRACKING IN CONSOLE
@@ -496,11 +506,11 @@ int main(int argc, char* argv[]) {
 
             }
 			//END CLONE TABLE RECORDING EACH 10 DAYS
-			
-			
+
+
             ftrackH.flush();
         }
-		
+
 		/////END SIMULATION LOOP//////////////
 
 
