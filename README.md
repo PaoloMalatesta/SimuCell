@@ -1,6 +1,8 @@
 # SimuCell
 Brain tumor growth Monte-Carlo simulator
 
+*NEW: We now provide here, together with the source code, a flowchart of the program, an executable file (SimuCellWinx64.exe) compiled for Windows x64 and a batch file (RunExample_Command_lines.bat) containing two command lines running the simulation with two sets of parameters. One set implements clonal-dynamic based only on inherited variation of cell-cycle length, the other set adds to the former simulation a clonal-based competition (with an alienWeight=3 and lineageWeight=0.1).
+
 
 A series of questions were raised by the reviewers following the first submission of the manuscript reporting the results of SimuCell simulations. We think that the questions and the relative answers can be relevant and helpful for all potential readers, therefore we decided to include here the point by point list of answers 
 
