@@ -47,7 +47,7 @@ double SCALE_VOX {6};
 int brainVoxel {BASE_VOXEL*SCALE_VOX};
 int QUBI {200};
 //Cell Cycles parameters are given as hours*10^(-2)
-int LOW_CYCLE_LIMIT {850};
+int LOW_CYCLE_LIMIT {825};
 int SD_DELTA_CYCLE {250};
 //skewnorm parameters computed from timelapse data
 double SEEDCYCLE_MODE {13.5};
@@ -62,7 +62,7 @@ double P_DEATH_T_ZERO {0.0025};
 double ALIEN_WEIGHT {1};
 double LINEAGE_WEIGHT {1};
 //Quiescence and Stemness
-double G_ZERO_P {0.45};
+double G_ZERO_P {0.41};
 double STEM_FREQ_T0 {1};
 int N_DIFF_CYCLE {12};
 int SENCYCL{2};
