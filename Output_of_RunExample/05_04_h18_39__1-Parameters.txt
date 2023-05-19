@@ -1,0 +1,34 @@
+FILE NAME: 05_04_h18_39__1-Parameters.txt
+Version: Version4.x Generic
+***General*** 
+SPACESIZE 60000000 cells
+MAXDAYS 180 days
+START 10000 cells
+OUTPUT_TYPE 0 (true=all/false=sample)
+SAMPLE_FRACTION 0.01 cells
+***BrainGeometry***
+SEEDING_SIZE 157000 nm
+brainVoxel 300000 nm
+SCALE_VOX 6 (RATIO)
+QUBI 200
+***CellCycle***
+LOW_CYCLE_LIMIT 825 centiHrs
+SD_DELTA_CYCLE 250
+SEEDCYCLE_MODE 13.5
+SEEDCYCLE_SCALE 9
+SEEDCYCLE_SHAPE 11
+***Migration***
+MIGRATION_UNIT 7500 nm
+***CellDeath***
+P_DEATH_SCALE 0.2
+EC50 60
+P_DEATH_T_ZERO 0.0025
+ALIEN_WEIGHT 1
+LINEAGE_WEIGHT 1
+***Quiescence and stemness***
+G_ZERO_P 0.41
+P_ASYM  0
+P_T_GEN 0
+SENCYCL 2
+RSEED -12343
+mSEED 12343
