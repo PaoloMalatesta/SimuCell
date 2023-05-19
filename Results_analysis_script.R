@@ -4,6 +4,9 @@
 if (!require(rgl)) {
   install.packages("rgl")
 }
+if (!require(htmlwidgets)) {
+  install.packages("htmlwidgets")
+}
 library(rgl)
 
 #initialize color palette
