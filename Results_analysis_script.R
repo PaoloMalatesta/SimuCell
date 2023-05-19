@@ -105,7 +105,7 @@ plot(trackByHours$days,
      type="l",lwd=2,
      ylab="Median cell-cycle length (hours)",
      xlab = "Time (days)",
-     main="Median cell-cycle length of proliferating cells",
+     main="Median cell-cycle length\nof proliferating cells",
      ylim=c(18,22)
 )
 
@@ -149,7 +149,8 @@ plot(trackByHours$days,
 # 7. Histogram of the log10 of clone sizes
 
 hist(log10(tableFinal), freq = F, col="grey95",
-	main="Distribution of clone sizes")
+	main="Distribution of clone sizes",
+	xlab="log(number of cells)")
 lines(density(log10(tableFinal)) , lwd=2 )
 
 
@@ -166,7 +167,7 @@ pie(tableFinal,
     labels = "",
     border = NA,
     col=rainbow(1e4)[as.numeric(names(tableFinal))],
-    main=paste0("Clonal composition at final timepoint")
+    main="Clonal composition\nat final timepoint")
 
 
 # 10. Plot parameter values
