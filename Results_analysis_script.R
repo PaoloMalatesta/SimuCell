@@ -148,7 +148,8 @@ plot(trackByHours$days,
 
 # 7. Histogram of the log10 of clone sizes
 
-hist(log10(tableFinal), freq = F, col="grey95")
+hist(log10(tableFinal), freq = F, col="grey95",
+	main="Distribution of clone sizes")
 lines(density(log10(tableFinal)) , lwd=2 )
 
 
@@ -165,9 +166,7 @@ pie(tableFinal,
     labels = "",
     border = NA,
     col=rainbow(1e4)[as.numeric(names(tableFinal))],
-    main=paste0("Clonal composition at final timepoint\n(",
-                clones95,
-                " clones covering 95% of the entire population)"))
+    main=paste0("Clonal composition at final timepoint")
 
 
 # 10. Plot parameter values
@@ -185,22 +184,3 @@ rgl::plot3d(finalPopulation$x,
             finalPopulation$z,
             col=rainbow(1e4)[finalPopulation$name],
             alpha=.3)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
