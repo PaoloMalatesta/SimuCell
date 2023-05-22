@@ -9,7 +9,7 @@ density_colors=colorRampPalette( c("#5E4FA2" , "#3288BD" , "#66C2A5" , "#ABDDA4"
 
 
 # Choose a data file to analyze
-
+cat("\n\nSelect any of the four output files of the simulation to be explored\n\n")
 fileName <- file.choose() ## select any of the four output files of the simulation to be explored
 
 # Set the working directory to the directory of the selected file
@@ -172,15 +172,3 @@ title("Simulation parameter values")
 text(0.5,.5,
      paste(parameterValues,collapse="\r\n"))
 
-
-# 3D plot of final population coloured by cloneID
-
-if (!require(rgl)) {
-  install.packages("rgl", dependencies = TRUE)
-}
-
-rgl::plot3d(finalPopulation$x,
-            finalPopulation$y,
-            finalPopulation$z,
-            col=rainbow(1e4)[finalPopulation$name],
-            alpha=.3)
