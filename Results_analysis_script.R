@@ -179,8 +179,6 @@ if (!require(rgl)) {
   install.packages("rgl", dependencies = TRUE)
 }
 
-library(rgl)
-
 rgl::plot3d(finalPopulation$x,
             finalPopulation$y,
             finalPopulation$z,
