@@ -51,7 +51,7 @@ trackByHours <- read.delim(trackByHoursFile)
 parametersFile <- files[grep("Parameters", files)]
 parameters <- readLines(parametersFile)
 interestingParameters <- c("FILE NAME", "brainVoxel", "SCALE_VOX", 
-                          "SD_DELTA_CYCLE",  "MIGRATION_UNIT", "EC50",
+                          "SD_DELTA_CYCLE",  "MIGRATION_UNIT", "nCell50",
                            "P_DEATH_T_ZERO", "ALIEN_WEIGHT", "LINEAGE_WEIGHT")
 parameterValues <- sapply(interestingParameters, function(x) {
   parameterLine <- grep(x, parameters)[1]

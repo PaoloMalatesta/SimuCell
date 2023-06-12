@@ -1,5 +1,5 @@
 
-REM arguments are in the following order:  SD_DELTA_CYCLE, P_DEATH_T_ZERO, EC50, LINEAGE_WEIGHT, ALIEN_WEIGHT, RSEED
+REM arguments are in the following order:  SD_DELTA_CYCLE, P_DEATH_T_ZERO, NCELL50, LINEAGE_WEIGHT, ALIEN_WEIGHT, RSEED
 echo start simulation without competition
 SimuCellWinx64.exe 250 0.0025 60 1 1 -12343
 

@@ -21,7 +21,7 @@ SEEDCYCLE_SHAPE 11
 MIGRATION_UNIT					<-from 3200 to 15000 nm
 ***CellDeath***
 P_DEATH_SCALE 0.2
-EC50				      			<-from 30 to 200
+nCell50				      			<-from 30 to 200
 P_DEATH_T_ZERO					<-from 0.0025 to 0.04
 ALIEN_WEIGHT 3					<-from 1 to 10
 LINEAGE_WEIGHT					<-from 0.01 to 1
